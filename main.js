@@ -40,7 +40,7 @@ cellphones.forEach(function(val, index) {
     <div class="col-sm">
 
     <section class='cell-phone-image'>
-        <img src='/img/${val.photo}' alt='Moto G60' width='300'>
+        <img src='./img/${val.photo}' alt='Moto G60' width='300'>
     </section>
 
     <section class='detail-cellphone'>
