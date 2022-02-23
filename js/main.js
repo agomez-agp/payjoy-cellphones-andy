@@ -1,10 +1,21 @@
-
-/// <reference path="jquery-1.12.3.js" />
-
 (function ($) {
-    var list = [];
 
-    /* function to be executed when product is selected for comparision*/
+    cellphones.forEach(function(val, index) {
+        
+        var phones = `
+        <div class="w3-col l3 m6  relPos w3-center ">
+            <div class="selectProduct w3-padding" data-brand="${val.Brand}" data-id="${val.Model}" data-title="${val.Model.replace(" ","")}" data-screen="${val.screen}" data-processor="${val.processor}" data-ram="${val.ram}" data-memorystore="${val.processor}" data-battery="${val.battery}" data-camera="${val.camera}" data-os="${val.os}">
+                <a class="w3-btn-floating w3-light-grey addButtonCircular addToCompare">+</a>
+                <img src="img/${val.photo}" width="110" height="120" class="imgFill productImg">
+                <h4>${val.Model}</h4>
+            </div>
+        </div>
+        `;
+
+        $("#rows").append(phones);
+    });
+
+    var list = [];
 
     $(document).on('click', '.addToCompare', function () {
         $(".comparePanle").show();
@@ -53,8 +64,25 @@
     /*function to be executed when compare button is clicked*/
     $(document).on('click', '.cmprBtn', function () {
         if ($(".cmprBtn").hasClass("active")) {
-            /* this is to print the  features list statically*/
-            $(".contentPop").append('<div class="w3-col s3 m3 l3 compareItemParent relPos">' + '<ul class="product">' + '<li class=" relPos compHeader"><p class="w3-display-middle">Features</p></li>' + '<li>Title</li>' + '<li>Size</li>' + '<li>Weight</li>' + '<li class="cpu">Processor</li>' + '<li>Battery</li></ul>' + '</div>');
+            
+            var headers = `
+                    <div class="w3-col s3 m3 l3 compareItemParent relPos">
+                        <ul class="product">
+                            <li class=" relPos compHeader">
+                                <p class="w3-display-middle"><br>Características</b></p>
+                            </li>
+                            <li>Modelo</li>
+                            <li>Pantalla</li>
+                            <li>Procesador</li>
+                            <li>RAM</li>
+                            <li>Almacenamiento</li>
+                            <li>Cámara</li>
+                            <li>Batería</li>
+                            <li>Sistema operativo</li>
+                        </ul>
+                    </div>
+            `;
+            $(".contentPop").append(headers);
 
             for (var i = 0; i < list.length; i++) {
                 /* this is to add the items to popup which are selected for comparision */
@@ -62,7 +90,27 @@
                 var image = $('[data-title=' + list[i] + ']').find(".productImg").attr('src');
                 var title = $('[data-title=' + list[i] + ']').attr('data-id');
                 /*appending to div*/
-                $(".contentPop").append('<div class="w3-col s3 m3 l3 compareItemParent relPos">' + '<ul class="product">' + '<li class="compHeader"><img src="' + image + '" class="compareThumb"></li>' + '<li>' + title + '</li>' + '<li>' + $(product).data('size') + '</li>' + '<li>' + $(product).data('weight') + '<li class="cpu">' + $(product).data('processor') + '</li>' + '<li>' + $(product).data('battery') + '</ul>' + '</div>');
+
+                var body = `
+                <div class="w3-col s3 m3 l3 compareItemParent relPos">
+                    <ul class="product">
+                        <li class="compHeader">
+                            <img src="${image}" class="compareThumb">
+                        </li>
+                        <li>${$(product).data('id')}</li>
+                        <li>${$(product).data('screen')}</li>
+                        <li>${$(product).data('processor')}</li>
+                        <li>${$(product).data('ram')}</li>
+                        <li>${$(product).data('memorystore')}</li>
+                        <li>${$(product).data('camera')}</li>
+                        <li>${$(product).data('battery')}</li>
+                        <li>${$(product).data('os')}</li>
+                    </ul>
+                </div>`;
+
+                $(product).data('weight')
+
+                $(".contentPop").append(body);
             }
         }
         $(".modPos").show();
